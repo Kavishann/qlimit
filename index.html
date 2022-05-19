@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tharusha Kavishan">
+    <link rel="stylesheet" href="style.css">
+    <title>Queue limit</title>
+</head>
+<body>
+   
+    <label for="available_amount">Available Amount</label>
+    <input type="number" id="available_amount" placeholder="Available Amount">
+    <br>
+    <label for="unit_pirce">Unit Price</label>
+    <input type="number" id="unit_pirce" placeholder="Unit Price">
+    <br>
+    <label for="amount_in_liters">Amount in liters</label>
+    <input type="number" id="amount_in_liters" placeholder="Amount in liters" onkeyup="amount_in_liters(this.value);">
+    <br>
+    <label for="amount_in_price">Amount in Price</label>
+    <input type="number" id="amount_in_price" placeholder="Amount in Price" onkeyup="amount_in_price(this.value);">
+    <br>
+    <button type="submit" onclick="count_amount()">Add</button>
+   
+   <p id="error"></p>
+   <p>Available Liters <span id="available_liters"></span></p>
+   <p>Customer count <span id="customer_count"></span></p>
+    <p>Total Liters <span id="total_liters"></span></p>
+    <button type="submit" onclick="clear_data()">Clear</button>
+<script>
+let customer_count = 0;
+let total_liters = 0;
+function count_amount(){
+    var available_amount = document.getElementById("available_amount").value;
+    var unit_pirce = document.getElementById("unit_pirce").value;
+    var customer_liters = document.getElementById("amount_in_liters").value;
+    var customer_price = document.getElementById("amount_in_price").value;
+    if(available_amount != "" && unit_pirce != "" && customer_liters != "" && customer_price != "" ){
+    document.getElementById("error").innerText = ""; 
+    now_available_amount = available_amount - total_liters;
+    var unit_pirce = document.getElementById("unit_pirce").value;
+
+    if(now_available_amount > customer_liters){
+         customer_count++;
+        total_liters+= parseFloat(customer_liters); 
+    }else{
+    document.getElementById("error").innerText = "Not enough amount"; 
+}
+    now_available_amount = available_amount - total_liters;
+    document.getElementById("customer_count").innerText = customer_count;
+    document.getElementById("total_liters").innerText = total_liters;
+    document.getElementById("available_liters").innerText = (Math.round(now_available_amount * 100) / 100).toFixed(1);
+}else{
+    document.getElementById("error").innerText = "Please fill in all fields."; 
+}
+}
+
+function amount_in_price(val){
+    unit_pirce = document.getElementById("unit_pirce").value;
+    if(unit_pirce != ""){
+    pirce_cal = val / unit_pirce;
+    pirce_cal =  pirce_cal.toFixed(2);
+    document.getElementById("amount_in_liters").value = pirce_cal;
+    }else{
+    document.getElementById("error").innerText = "Please fill in unit price fields."; 
+    }  
+}
+function amount_in_liters(val){
+    unit_pirce = document.getElementById("unit_pirce").value;
+    if(unit_pirce != ""){
+    liters_cal = val * unit_pirce;
+    document.getElementById("amount_in_price").value = liters_cal;
+    }else{
+    document.getElementById("error").innerText = "Please fill in unit price fields."; 
+    }  
+}
+function clear_data(){
+customer_count = 0;
+total_liters = 0;  
+document.getElementById("available_amount").value = "";
+document.getElementById("unit_pirce").value = "";
+document.getElementById("amount_in_liters").value = "";
+document.getElementById("amount_in_price").value = 0;
+document.getElementById("customer_count").innerText = 0;
+document.getElementById("total_liters").innerText = 0;
+document.getElementById("available_liters").innerText = 0;
+document.getElementById("error").innerText = ""; 
+}
+</script>
+</body>
+</html>
