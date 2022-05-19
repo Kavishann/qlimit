@@ -17,10 +17,10 @@
     <input type="number" id="unit_pirce" placeholder="Unit Price">
     <br>
     <label for="amount_in_liters">Amount in liters</label>
-    <input type="number" id="amount_in_liters" placeholder="Amount in liters" onkeyup="amount_in_liters(this.value);">
+    <input type="number" id="amount_in_liters" placeholder="Amount in liters" onfocus="clear_my_data(this.id)" onkeyup="amount_in_liters(this.value);">
     <br>
     <label for="amount_in_price">Amount in Price</label>
-    <input type="number" id="amount_in_price" placeholder="Amount in Price" onkeyup="amount_in_price(this.value);">
+    <input type="number" id="amount_in_price" placeholder="Amount in Price" onfocus="clear_my_data(this.id)"  onkeyup="amount_in_price(this.value);">
     <br>
     <button type="submit" onclick="count_amount()">Add</button>
    
@@ -87,6 +87,9 @@ document.getElementById("customer_count").innerText = 0;
 document.getElementById("total_liters").innerText = 0;
 document.getElementById("available_liters").innerText = 0;
 document.getElementById("error").innerText = ""; 
+}
+function clear_my_data(id){
+    document.getElementById(id).value = "";   
 }
 </script>
 </body>
